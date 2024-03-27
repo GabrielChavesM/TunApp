@@ -75,13 +75,7 @@ app.post("/login", async (req, res) => {
 })
 
 
-const port = 5000;
+const port = 3000;
 app.listen(port, () => {
     console.log(`Server running on Port: ${port}`);
 });
-
-
-
-
-// node src/index.js 
-// type this shit to start this shit
