@@ -30,6 +30,8 @@ Certifique-se de ter o Node.js e o MongoDB instalados em sua máquina.
    
    $npm i ejs
 
+   $npm install -g nodemon --save-dev
+
 3. **Iniciar o Servidor**:
 Execute o seguinte comando para iniciar o servidor:
 
