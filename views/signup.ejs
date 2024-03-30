@@ -9,7 +9,7 @@
 <body>
     <div class="form-container">
         <h2>Registar-se</h2>
-        <form action="/signup" method="post">
+        <form id="signupForm" action="/signup" method="post">
             <div class="form-group">
                 <label for="name">Nome</label>
                 <input type="text" id="name" name="username" 
@@ -23,11 +23,31 @@
             <div class="form-group">
                 <label for="password">Palavra-passe</label>
                 <input type="password" name="password" id="password"
-                placeholder="Palavra-passe" required>
+                placeholder="Palavra-passe (mínimo 8 caracteres)" required>
+                <p id="passwordError" style="color: red;"></p>
             </div>
-            <button type="submit" class="submit-btn">Registar</button>
+            <button type="button" class="submit-btn" id="registerButton">Registar</button>
         </form>
         <p>Já tens conta? <a href="/">Iniciar sessão</a></p>
     </div>
+    <script>
+        document.getElementById('registerButton').addEventListener('click', function() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            if (!name || !email || !password) { 
+                alert('Preencha todos os campos.');
+                return;
+            }
+
+            if (password.length < 8) {
+                document.getElementById('passwordError').textContent = 'A palavra-passe deve ter no mínimo 8 caracteres.';
+                return;
+            }
+
+            document.getElementById('signupForm').submit();
+        });
+    </script>
 </body>
 </html>
