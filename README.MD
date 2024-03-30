@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-Este repositório contém uma página HTML com funcionalidades de registo e início de sessão, utilizando uma base de dados.
+Este repositório contém uma página HTML com funcionalidades de registo e início de sessão, utilizando: EJS, Node.JS, Express e MondoDB.
 
 ## Instruções de Utilização
 
