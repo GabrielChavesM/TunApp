@@ -44,6 +44,7 @@ app.post("/signup", async (req, res) => {
         const userdata = await collection.insertMany(data)
         console.log(userdata)
     }
+    if(!existingUserName && !existingUserEmail)res.send("<script>alert('Conta registada com sucesso.'); window.location='/';</script>")
 })
 
 // Login user
