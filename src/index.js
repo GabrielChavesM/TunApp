@@ -31,12 +31,11 @@ app.post("/signup", async (req, res) => {
         email: req.body.email,
         password: req.body.password
     }
-
     // Check if the user already exists in the database
     const existingUserName = await collection.findOne({name: data.name})
     const existingUserEmail = await collection.findOne({email: data.email})
     if(existingUserName || existingUserEmail) {
-        res.send("User already exists. Please choose a different username or email")
+        res.send("<script>alert('Usuário já existente. Tente novamente com outro nome ou email.'); window.location='/signup';</script>");
     } else {
         // Hash the password using bcrypt
         const saltRounds = 10 // Number of salt rounds to bcrypt
@@ -54,7 +53,7 @@ app.post("/login", async (req, res) => {
         const checkEmail = await collection.findOne({ email: req.body.email })
 
         if (!checkName || !checkEmail) {
-            res.send("User name or email cannot be found")
+            res.send("<script>alert('Nome de usuário ou email não se encontram registados.'); window.location='/';</script>");
             return; // Adding return to prevent further execution
         }
 
@@ -66,7 +65,7 @@ app.post("/login", async (req, res) => {
         if (isPasswordMatch) {
             res.render("home")
         } else {
-            res.send("Wrong password.")
+            res.send("<script>alert('Palavra-passe incorreta.'); window.location='/';</script>");
         }
     } catch (error) {
         console.error(error);
