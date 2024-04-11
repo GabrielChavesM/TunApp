@@ -9,7 +9,7 @@
 <body>
     <div class="form-container">
         <h2>Iniciar Sessão</h2>
-        <form action="/login" method="post">
+        <form id="loginForm" action="/login" method="post">
             <div class="form-group">
                 <label for="name">Nome</label>
                 <input type="text" id="name" name="username" 
@@ -28,6 +28,46 @@
             <button type="submit" class="submit-btn" id="loginButton">Iniciar Sessão</button>
         </form>
         <p>Não tens conta? <a href="/signup">Registar-se</a></p>
+        <% if (typeof showAlert !== 'undefined' && showAlert) { %>
+            <p style="color: red;">Nome de usuário ou email não se encontram registados.</p>
+        <% } %>
     </div>
+    
+    <script>
+        document.getElementById('loginButton').addEventListener('click', function(event) {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+    
+            if (!name || !email || !password) { 
+                alert('Preencha todos os campos.');
+                event.preventDefault(); // Prevent form submission
+                return;
+            }
+    
+            if (password.length < 8) {
+                alert('A palavra-passe deve ter no mínimo 8 caracteres.');
+                event.preventDefault(); // Prevent form submission
+                if (name.length < 5) {
+                    alert('A palavra-passe deve ter no mínimo 8 caracteres.\nO nome deve ter no mínimo 5 caracteres.');
+                    event.preventDefault(); // Prevent form submission
+                    return;
+                } else return;
+            }
+
+            if (name.length < 5) {
+                alert('O nome deve ter no mínimo 5 caracteres.');
+                event.preventDefault(); // Prevent form submission
+                if (password.length < 8) {
+                    alert('O nome deve ter no mínimo 5 caracteres.\nA palavra-passe deve ter no mínimo 8 caracteres.');
+                    event.preventDefault(); // Prevent form submission
+                    return;
+                } else return;
+            }
+    
+            document.getElementById('loginForm').submit(); // Submit the form if all conditions are met
+        });
+    </script>
+    
 </body>
 </html>

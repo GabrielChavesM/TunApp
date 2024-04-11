@@ -13,7 +13,7 @@
             <div class="form-group">
                 <label for="name">Nome</label>
                 <input type="text" id="name" name="username" 
-                placeholder="Digite o seu nome" required autocomplete="off">
+                placeholder="Digite o seu nome (mínimo 5 caracteres)" required autocomplete="off">
             </div>
             <div class="form-group">
                 <label for="name">Email</label>
@@ -30,24 +30,48 @@
         </form>
         <p>Já tens conta? <a href="/">Iniciar sessão</a></p>
     </div>
+
+    <!--Restriction on password length-->
     <script>
-        document.getElementById('registerButton').addEventListener('click', function() {
+        document.getElementById('registerButton').addEventListener('click', function(event) {
             var name = document.getElementById('name').value;
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
-
+    
             if (!name || !email || !password) { 
                 alert('Preencha todos os campos.');
+                event.preventDefault(); // Prevent form submission
                 return;
             }
-
+    
             if (password.length < 8) {
                 document.getElementById('passwordError').textContent = 'A palavra-passe deve ter no mínimo 8 caracteres.';
+                event.preventDefault(); // Prevent form submission
+                if (name.length < 5) {
+                document.getElementById('passwordError').textContent = 'A palavra-passe deve ter no mínimo 8 caracteres.\nO nome deve ter no mínimo 5 caracteres.';
+                event.preventDefault(); // Prevent form submission
                 return;
+                } else return;
             }
 
-            document.getElementById('signupForm').submit();
+            if (name.length < 5) {
+                document.getElementById('passwordError').textContent = 'O nome deve ter no mínimo 5 caracteres.';
+                event.preventDefault(); // Prevent form submission
+                if (password.length < 8) {
+                document.getElementById('passwordError').textContent = 'O nome deve ter no mínimo 5 caracteres.\nA palavra-passe deve ter no mínimo 8 caracteres.';
+                event.preventDefault(); // Prevent form submission
+                return;
+                } else return;
+            }
+    
+            document.getElementById('signupForm').submit(); // Submit the form if all conditions are met
         });
     </script>
+    <% if (typeof showAlert !== 'undefined' && showAlert) { %>
+        <script>
+            //alert('Usuário já existente. Tente novamente com outro nome ou email.');
+            document.getElementById('passwordError').textContent = 'Usuário já existente. Tente novamente com outro nome ou email.';
+        </script>
+    <% } %>
 </body>
 </html>
